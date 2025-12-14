@@ -1,0 +1,109 @@
+# ==================================================
+# EXPERIMENT CONFIGURATION
+# ==================================================
+
+experiment:
+  task: object_detection
+  framework: ultralytics-yolov11
+  run_name: auto            
+  runs_dir: runs/detect/train
+  save:
+    best: true
+    last: false
+    metrics_csv: true
+    plots: true
+
+# ==================================================
+# MODEL
+# ==================================================
+
+model:
+  name: yolov11s
+  pretrained: true          
+  weights: yolov11s.pt      
+
+# ==================================================
+# DATASET
+# ==================================================
+
+dataset:
+  data_yaml: data.yaml      
+  splits: [train, val, test]
+  num_classes: from_yaml    
+
+# ==================================================
+# TRAINING
+# ==================================================
+
+training:
+  epochs: 150
+  patience: 25
+
+  imgsz: 640
+  batch: 16
+
+  optimizer: AdamW
+  lr0: 0.0001
+  lrf: 0.01
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3.0
+
+  cos_lr: true
+
+# ==================================================
+# AUGMENTATION
+# ==================================================
+
+augmentation:
+  hsv_h: 0.015
+  hsv_s: 0.4
+  hsv_v: 0.2
+  translate: 0.1
+  scale: 0.3
+  fliplr: 0.5
+  mosaic: 0.5
+  close_mosaic: 15
+  mixup: 0.0
+  copy_paste: 0.0
+
+# ==================================================
+# HARDWARE & PERFORMANCE
+# ==================================================
+
+hardware:
+  device: 0                
+  workers: 12
+  cache: disk
+
+system_info:
+  gpu: RTX 3070 Ti Laptop (8GB VRAM)
+  cpu: Ryzen 9 6900HX (8C/16T)
+  ram: 32GB DDR5 SO-DIMM
+
+# ==================================================
+# EVALUATION & LOGGING
+# ==================================================
+
+evaluation:
+  metrics:
+    - precision
+    - recall
+    - map50
+    - map50_95
+    - f1
+  per_class: true
+
+logging:
+  console: true
+  csv: true
+  plots: true
+
+# ==================================================
+# REPRODUCIBILITY
+# ==================================================
+
+reproducibility:
+  seed: 42
+  deterministic: true
+  verbose: true

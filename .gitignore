@@ -1,0 +1,15 @@
+# Datasets (Keep structure, ignore files)
+data/**/*
+!data/**/.gitkeep
+src/dataset*/**/*
+!src/dataset*/**/.gitkeep
+src/runs/**/*
+!src/runs/**/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.DS_Store
+.env
+.vscode/
